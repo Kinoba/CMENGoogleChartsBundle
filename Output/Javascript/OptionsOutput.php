@@ -46,7 +46,11 @@ class OptionsOutput extends AbstractOptionsOutput
             if (isset($optionValue['date'])) {
                 $js .= $this->dateOutput->draw(new \DateTime($optionValue['date']));
             } else {
-                $js .= json_encode($optionValue);
+                if ($optionKey == 'series') {
+                    $js .= json_encode($optionValue, JSON_FORCE_OBJECT);
+                } else {
+                    $js .= json_encode($optionValue);
+                }
             }
 
             if ($optionKey != $lastKey) {
